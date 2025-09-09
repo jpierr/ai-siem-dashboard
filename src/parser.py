@@ -5,7 +5,12 @@ def parse_syslog_line(line: str) -> dict:
     """
     Parse a syslog line into components.
     """
-    pattern = r'^(?P<month>\w+)\s+(?P<day>\d+)\s+(?P<time>\S+)\s+(?P<host>\S+)\s+(?P<process>[^\[]+)\[(?P<pid>\d+)\]:\s+(?P<msg>.+)$'
+    pattern = (
+        r'^(?P<month>\w+)\s+(?P<day>\d+)\s+(?P<time>\S+)\s+'
+        r'(?P<host>\S+)\s+'
+        r'(?P<process>[^\[\s]+)\[(?P<pid>\d+)\]:\s+'
+        r'(?P<msg>.+)$'
+    )
     match = re.match(pattern, line)
     return match.groupdict() if match else {"raw": line}
 
